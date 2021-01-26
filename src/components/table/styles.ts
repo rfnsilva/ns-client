@@ -19,7 +19,7 @@ export const Container = styled.div`
   .responsive-table {
     li {
       border-radius: 3px;
-      padding: 25px 30px;
+      padding: 5px 30px;
       display: flex;
       justify-content: space-between;
       margin-bottom: 8px;
@@ -30,6 +30,8 @@ export const Container = styled.div`
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.03em;
+      height: 50px;
+      align-items: center;
     }
 
     .table-row {
@@ -40,6 +42,17 @@ export const Container = styled.div`
 
     .col-1 {
       flex-basis: 90%;
+      max-width: 100%;
+
+      input {
+        width: 100%;
+        height: 50px;
+      }
+
+      input:focus {
+        outline: none;
+        border: none;
+      }
     }
 
     .col-2 {
@@ -67,12 +80,14 @@ export const Container = styled.div`
 
       .col {
         flex-basis: 100%;
+        align-items: center;
       }
 
       .col {
         display: flex;
         padding: 10px 0;
         &:before {
+          height: 19px;
           color: #6c7a89;
           background-color: #99999938;
           padding-right: 10px;

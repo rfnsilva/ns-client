@@ -45,7 +45,7 @@ const navbar: React.FC = () => {
       <MenuToggle isOpen={isOpen} toggle={toggle} toggleJWT={toggleJWT} />
       <Container scrollNav={scrollNav}>
         <Wrapper>
-          <Logo>T2 Software</Logo>
+          <Logo>NS software</Logo>
 
           <MobileIcon onClick={toggle}>
             <FaBars />

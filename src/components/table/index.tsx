@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { FaTrashAlt, FaUserEdit } from 'react-icons/fa'
 
 import Api from '../../config/api'
@@ -15,6 +15,7 @@ const table: React.FC = () => {
     id: '',
     description: ''
   })
+  let inputEl = useRef<HTMLInputElement[] | null>([])
 
   useEffect(() => {
     async function getTaskApi() {
@@ -24,6 +25,8 @@ const table: React.FC = () => {
 
     getTaskApi()
   }, [])
+
+  inputEl.current = new Array(tasks.length)
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setTask({
@@ -77,6 +80,18 @@ const table: React.FC = () => {
     }
   }
 
+  const onButtonClickInputFocus = (i: number) => {
+    if (inputEl.current) {
+      inputEl.current[i].focus()
+    }
+  }
+
+  const onRefMount = (ref: HTMLInputElement, i: number) => {
+    if (inputEl.current) {
+      inputEl.current[i] = ref
+    }
+  }
+
   return (
     <Container>
       <div className="containerButton">
@@ -93,7 +108,7 @@ const table: React.FC = () => {
       <div className="container">
         <ul className="responsive-table">
           <li className="table-header">
-            <div className="col col-1">description</div>
+            <div className="col col-1">descrição</div>
             <div className="col col-2">Ações</div>
           </li>
 
@@ -101,10 +116,15 @@ const table: React.FC = () => {
             return (
               <div key={i}>
                 <li className="table-row">
-                  <div className="col col-1" data-label="Name">
-                    {item.description}
+                  <div className="col col-1" data-label="descrição">
+                    <input
+                      name="description"
+                      disabled={false}
+                      ref={(ref: HTMLInputElement) => onRefMount(ref, i)}
+                      defaultValue={item.description}
+                    />
                   </div>
-                  <div className="col col-2" data-label="Acoes">
+                  <div className="col col-2" data-label="ações">
                     <button
                       type="button"
                       className="btn btn-secondary button-edit"
@@ -115,9 +135,10 @@ const table: React.FC = () => {
                     <button
                       type="button"
                       className="btn btn-secondary button-edit"
-                      data-toggle="modal"
-                      data-target="#modalExemplo"
-                      onClick={() => setUpdateTask(item)}
+                      // data-toggle="modal"
+                      // data-target="#modalExemplo"
+                      onClick={() => onButtonClickInputFocus(i)}
+                      // onClick={() => setUpdateTask(item)}
                     >
                       <FaUserEdit />
                     </button>
