@@ -10,8 +10,8 @@ export default createGlobalStyle`
     height: 100vh;
     width: 100%;
     font: 400 16px Roboto, sans-serif;
-    background: #9bcfd4;
-    color: #fff;
+    background: #f2f2f2;
+    color: #000;
   }
   *, button, input {
     border: 0;

@@ -8,7 +8,7 @@ interface PropsJWT {
 }
 
 export const Container = styled.nav<Props>`
-  background-color: #438f96;
+  background-color: #fff;
   height: ${props => (props.scrollNav ? '60px' : '80px')};
   display: flex;
   justify-content: center;
@@ -18,6 +18,11 @@ export const Container = styled.nav<Props>`
   top: 0;
   z-index: 10;
   transition: all 0.2s ease-in-out;
+  box-shadow: 0px 8px 16px -5px #9e9e9e;
+  button svg {
+    width: 25px;
+    height: 30px;
+  }
   @media (max-width: 960px) {
     transition: 0.8s all ease;
   }
@@ -30,11 +35,13 @@ export const Wrapper = styled.div`
   z-index: 1;
   width: 100%;
   max-width: 1000px;
+  @media (max-width: 769px) {
+    justify-content: start;
+  }
 `
 
 /* transformar isso em um link */
 export const Logo = styled.div`
-  color: #fff;
   justify-self: flex-start;
   cursor: pointer;
   font-size: 1.5rem;
@@ -55,7 +62,6 @@ export const MobileIcon = styled.div`
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
     cursor: pointer;
-    color: #fff;
   }
 `
 
@@ -117,7 +123,6 @@ export const NavMenu = styled.ul<PropsJWT>`
     border: 1px solid #1b3f42;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    color: #fff;
   }
 
   .dropdown-menu {
@@ -193,7 +198,6 @@ export const NavItem = styled.li`
 `
 /* transformar isso em um link */
 export const NavLink = styled.a`
-  color: #fff;
   display: flex;
   align-items: center;
   text-decoration: none !important;
@@ -221,7 +225,6 @@ export const NavBtnLink = styled.div`
   background: #eb533f;
   white-space: nowrap;
   padding: 10px 22px;
-  color: #fff;
   font-size: 16px;
   outline: none;
   border: none;
@@ -230,7 +233,7 @@ export const NavBtnLink = styled.div`
   text-decoration: none;
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: #fff;
+    background: #552123;
     color: #010606;
   }
 `

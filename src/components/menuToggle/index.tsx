@@ -1,14 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import { Container, Icon, CloseIcon, Wrapper, Menu, MenuLink } from './styles'
 
 export interface Props {
   isOpen?: boolean
   toggle?: any
-  toggleJWT?: any
 }
 
-const menuToggle: React.FC<Props> = ({ isOpen, toggle, toggleJWT }) => {
+const menuToggle: React.FC<Props> = ({ isOpen, toggle }) => {
   return (
     <Container isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
@@ -17,9 +16,9 @@ const menuToggle: React.FC<Props> = ({ isOpen, toggle, toggleJWT }) => {
 
       <Wrapper>
         <Menu>
-          <MenuLink onClick={toggleJWT} href="#">
-            JWT
-          </MenuLink>
+          <MenuLink href="#">vagas</MenuLink>
+          <MenuLink href="#">testes</MenuLink>
+          <MenuLink href="#">perfil</MenuLink>
         </Menu>
       </Wrapper>
     </Container>
