@@ -150,8 +150,3 @@ export const Container = styled.div<Props>`
     }
   }
 `
-export const Icon = styled.div`
-  @media (max-width: 767px) {
-    display: none;
-  }
-`

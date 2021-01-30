@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { FaTachometerAlt, FaCog, FaWrench, FaAngleRight } from 'react-icons/fa'
+import { FaTachometerAlt, FaCog, FaWrench } from 'react-icons/fa'
 
-import { Container, Icon } from './styles'
+import { Container } from './styles'
 
 interface Props {
   isOpenSidebar: boolean

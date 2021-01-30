@@ -12,7 +12,7 @@ interface IUser {
   phone?: string
   github?: string
   linkedin?: string
-  Behance?: string
+  behance?: string
 }
 
 // interface com todos os dados necessarios
@@ -28,6 +28,8 @@ interface AuthContextData {
     email: string | undefined,
     password: string | undefined
   ): Promise<IUser | undefined>
+  updateEmail(email: string, id: string): Promise<void>
+  updateUser(user: IUser, id: string): Promise<void>
   signOut(): void
 }
 
@@ -42,10 +44,12 @@ export const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function loadStorageData() {
       const userLocal = JSON.parse(localStorage.getItem('user') || '{}')
-      // const tokenLocal = JSON.parse(localStorage.getItem('token') || '{}')
+      const tokenLocal = JSON.parse(localStorage.getItem('token') || '{}')
+
+      console.log(userLocal)
 
       setUser(userLocal)
-      // setToken(tokenLocal)
+      setToken(tokenLocal)
     }
 
     loadStorageData()
@@ -105,6 +109,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         .get()
 
       const userDb = docs[0].data()
+      userDb.id = docs[0].id
 
       setUser(userDb)
       setToken(tokenUser)
@@ -122,6 +127,60 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.clear()
   }
 
+  async function updateEmail(email: string, id: string) {
+    // update no firestore
+    const userCurrent = auth.currentUser
+
+    userCurrent?.updateEmail(email)
+
+    await db.collection('user').doc(id).set({
+      email: email
+    })
+
+    // pega no firestore
+    const { docs } = await db
+      .collection('user')
+      .where('email', '==', email)
+      .limit(1)
+      .get()
+
+    const userDb = docs[0].data()
+    userDb.id = docs[0].id
+
+    setUser(userDb)
+    localStorage.setItem('user', JSON.stringify(userDb))
+  }
+
+  async function updateUser(user: IUser, id: string) {
+    const { behance, github, image, linkedin, name, phone, surname } = user
+    const userLocal = JSON.parse(localStorage.getItem('user') || '{}')
+
+    // update no firestore
+    await db.collection('user').doc(id).set({
+      behance: behance,
+      email: userLocal.email,
+      github: github,
+      image: image,
+      linkedin: linkedin,
+      name: name,
+      surname: surname,
+      phone: phone
+    })
+
+    // pega no firestore
+    const { docs } = await db
+      .collection('user')
+      .where('email', '==', userLocal.email)
+      .limit(1)
+      .get()
+
+    const userDb = docs[0].data()
+    userDb.id = docs[0].id
+
+    setUser(userDb)
+    localStorage.setItem('user', JSON.stringify(userDb))
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -130,6 +189,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         signed: !!user,
         signUp,
         signIn,
+        updateEmail,
+        updateUser,
         signOut
       }}
     >

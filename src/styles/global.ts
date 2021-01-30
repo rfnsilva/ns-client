@@ -17,4 +17,5 @@ export default createGlobalStyle`
     border: 0;
     background: none;
   }
+
 `

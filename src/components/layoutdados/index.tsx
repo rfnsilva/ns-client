@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+
+import AuthContext from '../../contexts/auth'
 
 import { Container } from './styles'
 
@@ -6,11 +8,64 @@ interface Props {
   isOpenSidebar: boolean
 }
 
+interface IUser {
+  id?: string
+  email?: string | null | undefined
+  name?: string
+  surname?: string
+  image?: string
+  phone?: string
+  github?: string
+  linkedin?: string
+  behance?: string
+}
+
 const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
+  const { user, updateEmail, updateUser } = useContext(AuthContext)
+  const [userUp, setUserUp] = useState<IUser>({
+    id: '',
+    email: '',
+    name: '',
+    surname: '',
+    image: '',
+    phone: '',
+    github: '',
+    linkedin: '',
+    behance: ''
+  })
+
+  const handleChangeEmail = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setUserUp({
+      ...userUp,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  const submitEmail = async () => {
+    if (
+      userUp.email !== undefined &&
+      userUp.email !== null &&
+      user.id !== undefined
+    ) {
+      await updateEmail(userUp.email, user.id)
+    }
+  }
+
+  const submitUpdateUser = async () => {
+    if (user.id !== undefined) {
+      await updateUser(userUp, user.id)
+    }
+  }
+
   return (
     <Container isOpenSidebar={isOpenSidebar}>
       <div className="container-fluid px-1 px-md-4 py-5 mx-auto">
-        <div className="row d-flex justify-content-center px-3">
+        <div
+          className="row d-flex justify-content-center px-3"
+          style={{ margin: '0' }}
+        >
           <div className="card">
             <div className="row">
               <div className="col-sm-12 col-lg-6 col-md-6 col-12 titleSection">
@@ -50,15 +105,24 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     </label>
                     <input
                       className="input"
+                      defaultValue={
+                        user.email === null || user.email === undefined
+                          ? ''
+                          : user.email
+                      }
+                      onChange={handleChangeEmail}
                       placeholder="email@exemplo.com"
                       type="text"
                       name="email"
                     />
                   </div>
                 </div>
-                <button className="btn btn-primary" type="button">
-                  <span className="MuiButton-label">Atualizar email</span>
-                  <span className="MuiTouchRipple-root"></span>
+                <button
+                  onClick={submitEmail}
+                  className="btn btn-primary"
+                  type="button"
+                >
+                  <span>Atualizar email</span>
                 </button>
               </div>
             </div>
@@ -84,6 +148,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="Digite seu nome"
                     type="text"
                     name="name"
+                    defaultValue={
+                      user.name === null || user.name === undefined
+                        ? ''
+                        : user.name
+                    }
+                    onChange={handleChangeEmail}
                   />
                 </div>
                 <div className="form-element-component">
@@ -96,6 +166,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="Digite seu sobrenome"
                     type="text"
                     name="surname"
+                    defaultValue={
+                      user.surname === null || user.surname === undefined
+                        ? ''
+                        : user.surname
+                    }
+                    onChange={handleChangeEmail}
                   />
                 </div>
                 <div className="form-element-component">
@@ -108,6 +184,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="(00) 00000-0000"
                     type="text"
                     name="phone"
+                    onChange={handleChangeEmail}
+                    defaultValue={
+                      user.phone === null || user.phone === undefined
+                        ? ''
+                        : user.phone
+                    }
                   />
                 </div>
               </div>
@@ -130,6 +212,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="https://github.com/abcdefghi"
                     type="text"
                     name="github"
+                    onChange={handleChangeEmail}
+                    defaultValue={
+                      user.github === null || user.github === undefined
+                        ? ''
+                        : user.github
+                    }
                   />
                 </div>
                 <div className="form-element-component">
@@ -139,6 +227,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="https://www.behance.net/abcdefghi"
                     type="text"
                     name="behance"
+                    onChange={handleChangeEmail}
+                    defaultValue={
+                      user.behance === null || user.behance === undefined
+                        ? ''
+                        : user.behance
+                    }
                   />
                 </div>
                 <div className="form-element-component">
@@ -148,13 +242,21 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="https://www.linkedin.com/in/abcdefghi"
                     type="text"
                     name="linkedin"
+                    onChange={handleChangeEmail}
+                    defaultValue={
+                      user.linkedin === null || user.linkedin === undefined
+                        ? ''
+                        : user.linkedin
+                    }
                   />
                 </div>
               </div>
             </div>
           </div>
           <div className="col-lg-10 p-3 d-flex justify-content-center">
-            <button>ATUALIZAR</button>
+            <button type="button" onClick={submitUpdateUser}>
+              ATUALIZAR
+            </button>
           </div>
         </div>
       </div>
