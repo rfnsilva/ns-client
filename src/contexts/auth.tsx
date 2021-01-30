@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react'
 
-import { auth, db } from '../config/firebase'
+import { auth, db, storage } from '../config/firebase'
 
 // inteface de usuario a ser salva no storage
 interface IUser {
@@ -31,6 +31,7 @@ interface AuthContextData {
   updateEmail(email: string, id: string): Promise<void>
   updateUser(user: IUser, id: string): Promise<void>
   signOut(): void
+  uploadImage(file: File, id: string): Promise<void>
 }
 
 // criando context com tipo da interface acima
@@ -45,8 +46,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     async function loadStorageData() {
       const userLocal = JSON.parse(localStorage.getItem('user') || '{}')
       const tokenLocal = JSON.parse(localStorage.getItem('token') || '{}')
-
-      console.log(userLocal)
 
       setUser(userLocal)
       setToken(tokenLocal)
@@ -128,12 +127,11 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function updateEmail(email: string, id: string) {
-    // update no firestore
     const userCurrent = auth.currentUser
 
     userCurrent?.updateEmail(email)
 
-    await db.collection('user').doc(id).set({
+    await db.collection('user').doc(id).update({
       email: email
     })
 
@@ -152,15 +150,14 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function updateUser(user: IUser, id: string) {
-    const { behance, github, image, linkedin, name, phone, surname } = user
+    const { behance, github, linkedin, name, phone, surname } = user
     const userLocal = JSON.parse(localStorage.getItem('user') || '{}')
 
     // update no firestore
-    await db.collection('user').doc(id).set({
+    await db.collection('user').doc(id).update({
       behance: behance,
       email: userLocal.email,
       github: github,
-      image: image,
       linkedin: linkedin,
       name: name,
       surname: surname,
@@ -181,6 +178,31 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userDb))
   }
 
+  async function uploadImage(file: File, id: string) {
+    const uploadTask = storage.ref(`/images/${file.name}`).put(file)
+
+    uploadTask.on('state_changed', console.log, console.error, () => {
+      storage
+        .ref('images')
+        .child(file.name)
+        .getDownloadURL()
+        .then(async (url: string) => {
+          await db.collection('user').doc(id).update({
+            image: url
+          })
+
+          setUser({
+            ...user,
+            image: url
+          })
+
+          const userLocal = JSON.parse(localStorage.getItem('user') || '{}')
+          userLocal.image = url
+          localStorage.setItem('user', JSON.stringify(userLocal))
+        })
+    })
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -191,6 +213,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         signIn,
         updateEmail,
         updateUser,
+        uploadImage,
         signOut
       }}
     >

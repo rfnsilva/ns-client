@@ -10,7 +10,7 @@ export const Container = styled.div<Props>`
   .card {
     width: 100%;
     max-width: 850px;
-    height: 350px;
+    height: 362px;
     border-radius: 20px;
     box-shadow: 0px 8px 16px 4px #9e9e9e;
     margin-top: 15px;
@@ -63,6 +63,16 @@ export const Container = styled.div<Props>`
 
   .input-upload {
     width: 100%;
+  }
+
+  .input-upload-label {
+    width: 100%;
+    height: 38px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #317bff;
+    cursor: pointer;
   }
 
   .btn-primary {

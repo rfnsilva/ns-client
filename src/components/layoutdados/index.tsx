@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 
 import AuthContext from '../../contexts/auth'
 
@@ -8,54 +8,54 @@ interface Props {
   isOpenSidebar: boolean
 }
 
-interface IUser {
-  id?: string
-  email?: string | null | undefined
-  name?: string
-  surname?: string
-  image?: string
-  phone?: string
-  github?: string
-  linkedin?: string
-  behance?: string
-}
-
 const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
-  const { user, updateEmail, updateUser } = useContext(AuthContext)
-  const [userUp, setUserUp] = useState<IUser>({
-    id: '',
-    email: '',
-    name: '',
-    surname: '',
-    image: '',
-    phone: '',
-    github: '',
-    linkedin: '',
-    behance: ''
-  })
+  const { user, updateEmail, updateUser, uploadImage } = useContext(AuthContext)
+  const inputEmail = useRef<HTMLInputElement>(null)
+  const inputName = useRef<HTMLInputElement>(null)
+  const inputSurname = useRef<HTMLInputElement>(null)
+  const inputPhone = useRef<HTMLInputElement>(null)
+  const inputLinkedin = useRef<HTMLInputElement>(null)
+  const inputBehance = useRef<HTMLInputElement>(null)
+  const inputGithub = useRef<HTMLInputElement>(null)
 
-  const handleChangeEmail = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setUserUp({
-      ...userUp,
-      [event.target.name]: event.target.value
-    })
+  const submitEmailUpdate = async () => {
+    if (inputEmail.current && user.id !== undefined) {
+      await updateEmail(inputEmail.current.value, user.id)
+    }
   }
 
-  const submitEmail = async () => {
-    if (
-      userUp.email !== undefined &&
-      userUp.email !== null &&
-      user.id !== undefined
-    ) {
-      await updateEmail(userUp.email, user.id)
+  console.log(user)
+
+  function handleChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault()
+
+    if (e.target.files && user.id !== undefined) {
+      uploadImage(e.target.files[0], user.id)
     }
   }
 
   const submitUpdateUser = async () => {
-    if (user.id !== undefined) {
-      await updateUser(userUp, user.id)
+    if (
+      user.id !== undefined &&
+      inputGithub.current &&
+      inputBehance.current &&
+      inputLinkedin.current &&
+      inputSurname.current &&
+      inputEmail.current &&
+      inputName.current &&
+      inputPhone.current
+    ) {
+      const userUpdate = {
+        name: inputName.current.value,
+        email: inputEmail.current.value,
+        surname: inputSurname.current.value,
+        github: inputGithub.current.value,
+        linkedin: inputLinkedin.current.value,
+        behance: inputBehance.current.value,
+        phone: inputPhone.current.value
+      }
+
+      await updateUser(userUpdate, user.id)
     }
   }
 
@@ -74,16 +74,23 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
               </div>
               <div className="col-sm-12 col-lg-6 col-md-6 col-12">
                 <div className="mx-auto mb-3 text-left">
-                  <img
-                    className="profile-img"
-                    src="https://firebasestorage.googleapis.com/v0/b/preparov3.appspot.com/o/profileImages%2Fusers%2FpkZuHAGhUqgO1ams5tRa57rAs1G2.jpg?alt=media&amp;token=3f8c0dab-fa93-4950-aaab-1fc7f33934e5"
-                  />
+                  <img className="profile-img" src={user.image} />
                 </div>
                 <div>
                   <div className="input-upload">
-                    <button type="button" className="btn btn-primary">
+                    <label className="input-upload-label" htmlFor="input-file">
+                      Carregar foto
+                    </label>
+                    <input
+                      type="file"
+                      id="input-file"
+                      className="btn btn-primary"
+                      onChange={handleChangeImage}
+                      style={{ display: 'none' }}
+                    />
+                    {/* <button type="button" className="btn btn-primary">
                       carregar
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -110,15 +117,15 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                           ? ''
                           : user.email
                       }
-                      onChange={handleChangeEmail}
                       placeholder="email@exemplo.com"
                       type="text"
                       name="email"
+                      ref={inputEmail}
                     />
                   </div>
                 </div>
                 <button
-                  onClick={submitEmail}
+                  onClick={submitEmailUpdate}
                   className="btn btn-primary"
                   type="button"
                 >
@@ -153,7 +160,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                         ? ''
                         : user.name
                     }
-                    onChange={handleChangeEmail}
+                    ref={inputName}
                   />
                 </div>
                 <div className="form-element-component">
@@ -171,7 +178,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                         ? ''
                         : user.surname
                     }
-                    onChange={handleChangeEmail}
+                    ref={inputSurname}
                   />
                 </div>
                 <div className="form-element-component">
@@ -184,12 +191,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="(00) 00000-0000"
                     type="text"
                     name="phone"
-                    onChange={handleChangeEmail}
                     defaultValue={
                       user.phone === null || user.phone === undefined
                         ? ''
                         : user.phone
                     }
+                    ref={inputPhone}
                   />
                 </div>
               </div>
@@ -212,12 +219,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="https://github.com/abcdefghi"
                     type="text"
                     name="github"
-                    onChange={handleChangeEmail}
                     defaultValue={
                       user.github === null || user.github === undefined
                         ? ''
                         : user.github
                     }
+                    ref={inputGithub}
                   />
                 </div>
                 <div className="form-element-component">
@@ -227,12 +234,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="https://www.behance.net/abcdefghi"
                     type="text"
                     name="behance"
-                    onChange={handleChangeEmail}
                     defaultValue={
                       user.behance === null || user.behance === undefined
                         ? ''
                         : user.behance
                     }
+                    ref={inputBehance}
                   />
                 </div>
                 <div className="form-element-component">
@@ -242,12 +249,12 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="https://www.linkedin.com/in/abcdefghi"
                     type="text"
                     name="linkedin"
-                    onChange={handleChangeEmail}
                     defaultValue={
                       user.linkedin === null || user.linkedin === undefined
                         ? ''
                         : user.linkedin
                     }
+                    ref={inputLinkedin}
                   />
                 </div>
               </div>
