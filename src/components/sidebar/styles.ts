@@ -13,12 +13,7 @@ export const Container = styled.div<Props>`
       props.isOpenSidebarSubMenu ? 'block !important' : 'none !important'};
     margin: 0 1rem;
   }
-  .submenu1 {
-    display: none;
-  }
-  .submenu2 {
-    display: none;
-  }
+
   .navbar-nav {
     display: flex;
     flex-direction: column;
@@ -26,16 +21,20 @@ export const Container = styled.div<Props>`
     margin-bottom: 0;
     list-style: none;
   }
+
   .sidebar {
     min-height: 100vh;
   }
+
   .bg-gradient-primary {
     background-color: #34383e;
     background-size: cover;
   }
+
   .accordion {
     overflow-anchor: none;
   }
+
   .sidebar-brand {
     color: #fff;
     height: 4.375rem;
@@ -48,40 +47,57 @@ export const Container = styled.div<Props>`
     letter-spacing: 0.05rem;
     z-index: 1;
   }
+
   .rotate-n-15 {
     transform: rotate(-15deg);
   }
+
   .sidebar-dark hr.sidebar-divider {
     border-top: 1px solid rgba(255, 255, 255, 0.15);
   }
+
   .sidebar-heading {
     text-align: left;
     padding: 0 1rem;
     font-weight: 800;
     font-size: 0.65rem;
   }
+
   .sidebar hr.sidebar-divider {
     margin: 0 1rem 1rem;
   }
+
   .sidebar-brand-text {
     display: none;
   }
+
   .nav-item {
     position: relative;
   }
+
   .nav-link {
     display: flex;
     flex-direction: column;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.8);
+    color: #c93b59 !important;
     text-align: center;
     padding: 0.75rem 1rem;
     align-items: center;
+    cursor: pointer;
+    border-left: 2px solid transparent;
   }
+
   .nav-link span {
     font-size: 0.65rem;
     display: block;
+    color: #fff !important;
   }
+
+  .nav-link:hover {
+    background-color: #1d1e21;
+    border-left: 2px solid #c93b59;
+  }
+
   .sidebar-heading {
     color: rgba(255, 255, 255, 0.4);
     text-align: center;
@@ -89,6 +105,7 @@ export const Container = styled.div<Props>`
     font-weight: 800;
     font-size: 0.65rem;
   }
+
   .collapse-header {
     margin: 0;
     white-space: nowrap;
@@ -98,6 +115,7 @@ export const Container = styled.div<Props>`
     font-size: 0.65rem;
     color: #b7b9cc;
   }
+
   .collapse-item {
     padding: 0.5rem 1rem;
     margin: 0 0.5rem;
@@ -107,14 +125,17 @@ export const Container = styled.div<Props>`
     border-radius: 0.35rem;
     white-space: nowrap;
   }
+
   @media (min-width: 768px) {
     .sidebar-heading {
       text-align: left;
       font-size: 0.65rem;
     }
+
     .sidebar-brand-text {
       display: inline;
     }
+
     sup {
       top: -0.5em;
       position: relative;
@@ -122,6 +143,7 @@ export const Container = styled.div<Props>`
       line-height: 0;
       vertical-align: baseline;
     }
+
     .nav-link {
       display: block;
       width: 100%;
@@ -130,11 +152,13 @@ export const Container = styled.div<Props>`
       display: flex;
       align-items: center;
     }
+
     .nav-link span {
       font-size: 0.85rem;
       display: inline;
     }
   }
+
   @media (max-width: 767px) {
     .${props => props.subMenuSidebarClassName} {
       display: ${props =>
@@ -144,6 +168,7 @@ export const Container = styled.div<Props>`
       z-index: 1;
       top: 2px;
     }
+
     .toggled {
       display: ${props =>
         props.isOpenSidebar ? 'block !important' : 'none !important'};

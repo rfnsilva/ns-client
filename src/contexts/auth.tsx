@@ -30,7 +30,7 @@ interface AuthContextData {
   ): Promise<IUser | undefined>
   updateEmail(email: string, id: string): Promise<void>
   updateUser(user: IUser, id: string): Promise<void>
-  signOut(): void
+  signOut(): Promise<void>
   uploadImage(file: File, id: string): Promise<void>
 }
 

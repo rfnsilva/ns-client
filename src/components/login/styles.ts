@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #9bcfd4;
+  background-color: #c93b59;
   color: rgb(105, 104, 104);
   font-family: sans-serif;
   //CSS Card
@@ -146,7 +146,7 @@ export const Container = styled.div`
   //CSS Button
   .login-btn {
     font-family: Hack, monospace;
-    background: #7bc3ca;
+    background: #c93b59;
     color: #fff;
     cursor: pointer;
     font-size: 2em;
@@ -158,7 +158,7 @@ export const Container = styled.div`
     position: relative;
     outline: none;
     &:hover {
-      background: #4f9fa7;
+      background: #861d33;
       transition: all 0.5s;
       border-radius: 10px;
       color: #ffffff;

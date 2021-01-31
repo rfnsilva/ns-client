@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { FaBars } from 'react-icons/fa'
+
+import AuthContext from '../../contexts/auth'
 
 import MenuToggle from '../menuToggle'
 import { Wrapper, Container, Logo, MobileIcon, NavMenu } from './styles'
@@ -9,9 +12,15 @@ interface Props {
 }
 
 const navbar: React.FC<Props> = ({ toggleSidebar }) => {
+  const history = useHistory()
   const [scrollNav, setScrollNav] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isOpenJWT, setIsOpenJWT] = useState<boolean>(false)
+  const { signOut } = useContext(AuthContext)
+
+  useEffect(() => {
+    window.addEventListener('scroll', changeScrollNav)
+  }, [])
 
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -25,9 +34,10 @@ const navbar: React.FC<Props> = ({ toggleSidebar }) => {
     }
   }
 
-  useEffect(() => {
-    window.addEventListener('scroll', changeScrollNav)
-  }, [])
+  const signout = async () => {
+    await signOut()
+    return history.push('/login')
+  }
 
   return (
     <>
@@ -40,7 +50,7 @@ const navbar: React.FC<Props> = ({ toggleSidebar }) => {
           >
             <FaBars />
           </button>
-          <Logo>NS software</Logo>
+          <Logo>PreparoVc</Logo>
 
           <MobileIcon onClick={toggle}>
             <FaBars />
@@ -75,6 +85,17 @@ const navbar: React.FC<Props> = ({ toggleSidebar }) => {
                 aria-haspopup="true"
               >
                 perfil
+              </a>
+            </li>
+            <li className="nav-item dropdown no-arrow mx-1">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                aria-haspopup="true"
+                onClick={() => signout()}
+              >
+                signOut
               </a>
             </li>
           </NavMenu>

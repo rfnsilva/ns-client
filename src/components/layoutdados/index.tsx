@@ -339,7 +339,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
               </div>
             </div>
           </div>
-          <div className="col-lg-10 p-3 d-flex justify-content-center">
+          <div className="col-lg-10 p-3 d-flex justify-content-center updateButton">
             <button type="button" onClick={submitUpdateUser}>
               ATUALIZAR
             </button>

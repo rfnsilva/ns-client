@@ -8,7 +8,7 @@ export const Container = styled.div<Props>`
   z-index: 99;
   width: 100%;
   height: 100%;
-  background: #9bcfd4;
+  background: #c93b59;
   display: grid;
   align-items: center;
   top: 0;

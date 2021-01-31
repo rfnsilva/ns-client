@@ -93,6 +93,17 @@ export const Container = styled.div<Props>`
     );
   }
 
+  .updateButton {
+    button {
+      background-color: #c93b59;
+      margin-top: 22px;
+      border-radius: 10px;
+      width: 100%;
+      height: 45px;
+      color: #fff;
+    }
+  }
+
   @media (max-width: 768px) {
     .alt {
       height: 280px;

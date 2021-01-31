@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { FaTachometerAlt, FaCog, FaWrench } from 'react-icons/fa'
 
 import { Container } from './styles'
@@ -8,10 +9,16 @@ interface Props {
 }
 
 const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
+  const history = useHistory()
   const [isOpenSidebarSubMenu, setIsOpenSidebarSubMenu] = useState<boolean>(
     false
   )
   const [subMenuSidebarClassName] = useState<string>('')
+
+  const navigate = (url: string) => {
+    // redirecionar
+    return history.push(url)
+  }
 
   return (
     <Container
@@ -25,7 +32,7 @@ const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
         id="accordionSidebar"
       >
         <li className="nav-item active">
-          <a className="nav-link" href="index.html">
+          <a className="nav-link" onClick={() => navigate('/')}>
             <FaTachometerAlt />
             <span>Home</span>
           </a>
@@ -33,7 +40,7 @@ const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
 
         <hr className="sidebar-divider" />
         <li className="nav-item">
-          <a className="nav-link" href="#">
+          <a className="nav-link" onClick={() => navigate('/perfil/dados')}>
             <FaCog />
             <span>
               dados <br /> básicos
@@ -42,7 +49,10 @@ const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
         </li>
 
         <li className="nav-item">
-          <a className="nav-link" href="#">
+          <a
+            className="nav-link"
+            onClick={() => navigate('/perfil/localization')}
+          >
             <FaWrench />
             <span>local</span>
           </a>
