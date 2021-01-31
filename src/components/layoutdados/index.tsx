@@ -1,6 +1,12 @@
 import React, { useContext, useState, useRef } from 'react'
 
 import AuthContext from '../../contexts/auth'
+import {
+  validadEmail,
+  validadName,
+  validadSurname,
+  validadPhone
+} from '../../services/validations'
 
 import { Container } from './styles'
 
@@ -17,14 +23,22 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
   const inputLinkedin = useRef<HTMLInputElement>(null)
   const inputBehance = useRef<HTMLInputElement>(null)
   const inputGithub = useRef<HTMLInputElement>(null)
+  const [error, setError] = useState({
+    emailError: '',
+    nameError: '',
+    surnameError: '',
+    phoneError: ''
+  })
 
   const submitEmailUpdate = async () => {
-    if (inputEmail.current && user.id !== undefined) {
+    if (
+      inputEmail.current &&
+      user.id !== undefined &&
+      error.emailError === ''
+    ) {
       await updateEmail(inputEmail.current.value, user.id)
     }
   }
-
-  console.log(user)
 
   function handleChangeImage(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
@@ -59,6 +73,42 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
     }
   }
 
+  const validationName = (name: string) => {
+    const response = validadName(name)
+
+    setError({
+      ...error,
+      nameError: response.nameError
+    })
+  }
+
+  const validationSurname = (surname: string) => {
+    const response = validadSurname(surname)
+
+    setError({
+      ...error,
+      surnameError: response.surnameError
+    })
+  }
+
+  const validationEmail = (email: string) => {
+    const response = validadEmail(email)
+
+    setError({
+      ...error,
+      emailError: response.emailError
+    })
+  }
+
+  const validationPhone = (phone: string) => {
+    const response = validadPhone(phone)
+
+    setError({
+      ...error,
+      phoneError: response.phoneError
+    })
+  }
+
   return (
     <Container isOpenSidebar={isOpenSidebar}>
       <div className="container-fluid px-1 px-md-4 py-5 mx-auto">
@@ -88,9 +138,6 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                       onChange={handleChangeImage}
                       style={{ display: 'none' }}
                     />
-                    {/* <button type="button" className="btn btn-primary">
-                      carregar
-                    </button> */}
                   </div>
                 </div>
               </div>
@@ -112,6 +159,13 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     </label>
                     <input
                       className="input"
+                      onBlur={() =>
+                        validationEmail(
+                          inputEmail.current === null
+                            ? ''
+                            : inputEmail.current.value
+                        )
+                      }
                       defaultValue={
                         user.email === null || user.email === undefined
                           ? ''
@@ -123,6 +177,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                       ref={inputEmail}
                     />
                   </div>
+                  <div className="error">{error.emailError}</div>
                 </div>
                 <button
                   onClick={submitEmailUpdate}
@@ -155,6 +210,13 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="Digite seu nome"
                     type="text"
                     name="name"
+                    onBlur={() =>
+                      validationName(
+                        inputName.current === null
+                          ? ''
+                          : inputName.current.value
+                      )
+                    }
                     defaultValue={
                       user.name === null || user.name === undefined
                         ? ''
@@ -163,6 +225,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     ref={inputName}
                   />
                 </div>
+                <div className="error">{error.nameError}</div>
                 <div className="form-element-component">
                   <label className="label">
                     Sobrenome
@@ -173,6 +236,13 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="Digite seu sobrenome"
                     type="text"
                     name="surname"
+                    onBlur={() =>
+                      validationSurname(
+                        inputSurname.current === null
+                          ? ''
+                          : inputSurname.current.value
+                      )
+                    }
                     defaultValue={
                       user.surname === null || user.surname === undefined
                         ? ''
@@ -181,6 +251,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     ref={inputSurname}
                   />
                 </div>
+                <div className="error">{error.surnameError}</div>
                 <div className="form-element-component">
                   <label className="label">
                     Telefone
@@ -191,6 +262,13 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     placeholder="(00) 00000-0000"
                     type="text"
                     name="phone"
+                    onBlur={() =>
+                      validationPhone(
+                        inputPhone.current === null
+                          ? ''
+                          : inputPhone.current.value
+                      )
+                    }
                     defaultValue={
                       user.phone === null || user.phone === undefined
                         ? ''
@@ -199,6 +277,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                     ref={inputPhone}
                   />
                 </div>
+                <div className="error">{error.phoneError}</div>
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@ export const Container = styled.div<Props>`
   .card {
     width: 100%;
     max-width: 850px;
-    height: 362px;
+    height: 395px;
     border-radius: 20px;
     box-shadow: 0px 8px 16px 4px #9e9e9e;
     margin-top: 15px;
@@ -81,6 +81,16 @@ export const Container = styled.div<Props>`
 
   .alt {
     height: 280px;
+  }
+
+  .error {
+    width: 100%;
+    color: red;
+    background: linear-gradient(
+      to right,
+      #ffffff 50%,
+      rgba(241, 224, 190, 0.507)
+    );
   }
 
   @media (max-width: 768px) {
