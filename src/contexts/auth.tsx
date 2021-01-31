@@ -2,7 +2,16 @@ import React, { createContext, useState, useEffect } from 'react'
 
 import { auth, db, storage } from '../config/firebase'
 
-// inteface de usuario a ser salva no storage
+interface IAddress {
+  cep?: string
+  city?: string
+  street?: string
+  number?: string
+  complement?: string
+  state?: string
+  neighborhood?: string
+}
+
 interface IUser {
   id?: string
   email?: string | null | undefined
@@ -13,9 +22,9 @@ interface IUser {
   github?: string
   linkedin?: string
   behance?: string
+  address?: IAddress
 }
 
-// interface com todos os dados necessarios
 interface AuthContextData {
   signed: boolean
   token: string | undefined
@@ -32,12 +41,11 @@ interface AuthContextData {
   updateUser(user: IUser, id: string): Promise<void>
   signOut(): Promise<void>
   uploadImage(file: File, id: string): Promise<void>
+  updateLocalization(address: IAddress, id: string): Promise<void>
 }
 
-// criando context com tipo da interface acima
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
-// criando provedor que servirá a aplicação
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<IUser>({ email: '' })
   const [token, setToken] = useState<string | undefined>('')
@@ -54,7 +62,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     loadStorageData()
   }, [])
 
-  // função que realiza o cadastro
   async function signUp(
     email: string,
     password: string
@@ -73,7 +80,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       }
 
       // salvar no firestore
-      await db.collection('user').add(userData)
+      const { id } = await db.collection('user').add(userData)
+      userData.id = id
 
       setUser(userData)
       setToken(tokenUser)
@@ -86,7 +94,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     return undefined
   }
 
-  // função que realiza o cadastro
   async function signIn(
     email: string,
     password: string
@@ -203,6 +210,21 @@ export const AuthProvider: React.FC = ({ children }) => {
     })
   }
 
+  async function updateLocalization(address: IAddress, id: string) {
+    await db.collection('user').doc(id).update({
+      address: address
+    })
+
+    setUser({
+      ...user,
+      address: address
+    })
+
+    const userLocal = JSON.parse(localStorage.getItem('user') || '{}')
+    userLocal.address = address
+    localStorage.setItem('user', JSON.stringify(userLocal))
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -213,6 +235,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         signIn,
         updateEmail,
         updateUser,
+        updateLocalization,
         uploadImage,
         signOut
       }}

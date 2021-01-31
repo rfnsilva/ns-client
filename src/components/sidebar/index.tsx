@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { FaTachometerAlt, FaCog, FaWrench } from 'react-icons/fa'
+import { FaHome, FaMapMarkerAlt, FaFileAlt } from 'react-icons/fa'
 
 import { Container } from './styles'
 
@@ -42,7 +42,7 @@ const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
       >
         <li className="nav-item active">
           <a className="nav-link" onClick={() => navigate('/')}>
-            <FaTachometerAlt />
+            <FaHome />
             <span>Home</span>
           </a>
         </li>
@@ -50,9 +50,9 @@ const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
         <hr className="sidebar-divider" />
         <li className="nav-item">
           <a className="nav-link" onClick={() => navigate('/perfil/dados')}>
-            <FaCog />
+            <FaFileAlt />
             <span>
-              dados <br /> básicos
+              &nbsp;&nbsp;dados <br /> básicos
             </span>
           </a>
         </li>
@@ -62,7 +62,7 @@ const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
             className="nav-link"
             onClick={() => navigate('/perfil/localization')}
           >
-            <FaWrench />
+            <FaMapMarkerAlt />
             <span>local</span>
           </a>
         </li>

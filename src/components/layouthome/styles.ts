@@ -7,7 +7,8 @@ interface Props {
 
 export const Container = styled.div<Props>`
   margin-left: ${props =>
-    props.isOpenSidebar || props.widthSidebarOpen ? '71px;' : '0;'};
+    props.isOpenSidebar || props.widthSidebarOpen ? '85px;' : '0;'};
+  width: 100%;
 
   .card {
     width: 100%;

@@ -2,10 +2,13 @@ import styled from 'styled-components'
 
 interface Props {
   isOpenSidebar: boolean
+  widthSidebarOpen: boolean
 }
 
 export const Container = styled.div<Props>`
-  margin-left: ${props => (props.isOpenSidebar ? '71px;' : '0;')};
+  margin-left: ${props =>
+    props.isOpenSidebar || props.widthSidebarOpen ? '85px;' : '0;'};
+  width: 100%;
 
   .card {
     width: 100%;
@@ -55,10 +58,6 @@ export const Container = styled.div<Props>`
   .row {
     height: 100%;
     align-items: center;
-
-    .titleSection {
-      text-align: center;
-    }
   }
 
   .input-upload {
@@ -98,7 +97,7 @@ export const Container = styled.div<Props>`
       background-color: #c93b59;
       margin-top: 22px;
       border-radius: 10px;
-      width: 100%;
+      width: 30%;
       height: 45px;
       color: #fff;
     }

@@ -5,16 +5,16 @@ import AuthContext from '../../contexts/auth'
 
 import { Container } from './styles'
 
-const login: React.FC = () => {
+const register: React.FC = () => {
   const inputEmail = useRef<HTMLInputElement>(null)
   const inputPass = useRef<HTMLInputElement>(null)
-  const { signIn } = useContext(AuthContext)
+  const { signUp } = useContext(AuthContext)
 
   const history = useHistory()
 
   // subimit form
   const SubmitForm = async () => {
-    const response = await signIn(
+    const response = await signUp(
       inputEmail?.current?.value,
       inputPass?.current?.value
     )
@@ -23,7 +23,7 @@ const login: React.FC = () => {
       // redirecionar
       return history.push('/')
     } else {
-      alert('erro ao realizar login')
+      alert('erro ao realizar cadastro')
     }
   }
 
@@ -86,4 +86,4 @@ const login: React.FC = () => {
   )
 }
 
-export default login
+export default register

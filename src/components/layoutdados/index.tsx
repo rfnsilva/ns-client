@@ -1,6 +1,7 @@
-import React, { useContext, useState, useRef } from 'react'
+import React, { useContext, useState, useRef, useEffect } from 'react'
 
 import AuthContext from '../../contexts/auth'
+
 import {
   validadEmail,
   validadName,
@@ -29,6 +30,23 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
     surnameError: '',
     phoneError: ''
   })
+  const [widthSidebarOpen, setWidthSidebarOpen] = useState<boolean>(false)
+
+  useEffect(() => {
+    window.addEventListener('resize', changeWidthSidebar)
+
+    if (window.innerWidth >= 768) {
+      setWidthSidebarOpen(true)
+    }
+  }, [])
+
+  const changeWidthSidebar = () => {
+    if (window.innerWidth >= 768) {
+      setWidthSidebarOpen(true)
+    } else {
+      setWidthSidebarOpen(false)
+    }
+  }
 
   const submitEmailUpdate = async () => {
     if (
@@ -110,7 +128,10 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
   }
 
   return (
-    <Container isOpenSidebar={isOpenSidebar}>
+    <Container
+      isOpenSidebar={isOpenSidebar}
+      widthSidebarOpen={widthSidebarOpen}
+    >
       <div className="container-fluid px-1 px-md-4 py-5 mx-auto">
         <div
           className="row d-flex justify-content-center px-3"
@@ -118,7 +139,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
         >
           <div className="card">
             <div className="row">
-              <div className="col-sm-12 col-lg-6 col-md-6 col-12 titleSection">
+              <div className="col-sm-12 col-lg-6 col-md-6 col-12">
                 <h2 className="">Foto de perfil</h2>
                 <p className="">Adicione uma foto em seu perfil</p>
               </div>

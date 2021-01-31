@@ -79,12 +79,17 @@ export const Container = styled.div<Props>`
     align-items: center;
     cursor: pointer;
     border-left: 2px solid transparent;
+
+    svg {
+      width: 26px;
+      height: 33px;
+    }
   }
 
   .nav-link span {
     font-size: 0.65rem;
     display: block;
-    color: #c93b59 !important;
+    color: #fff !important;
   }
 
   .nav-link:hover {
