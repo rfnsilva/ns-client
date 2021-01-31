@@ -20,16 +20,6 @@ export const Container = styled.div<Props>`
       margin-top: 0.5rem;
     }
 
-    .profile-img {
-      width: 180px;
-      height: 180px;
-      justify-content: left;
-      border-radius: 90px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
     .stars {
       color: rgb(167, 40, 69);
       font-weight: 700;
@@ -61,26 +51,8 @@ export const Container = styled.div<Props>`
     }
   }
 
-  .input-upload {
-    width: 100%;
-  }
-
-  .input-upload-label {
-    width: 100%;
-    height: 38px;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    background-color: #317bff;
-    cursor: pointer;
-  }
-
   .btn-primary {
     width: 100%;
-  }
-
-  .alt {
-    height: 280px;
   }
 
   .error {
@@ -93,7 +65,7 @@ export const Container = styled.div<Props>`
     );
   }
 
-  .updateButton {
+  .sendButton {
     button {
       background-color: #c93b59;
       margin-top: 22px;
@@ -105,8 +77,8 @@ export const Container = styled.div<Props>`
   }
 
   @media (max-width: 768px) {
-    .alt {
-      height: 280px;
+    .card {
+      height: 662px;
     }
   }
 `

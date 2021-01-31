@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FaTachometerAlt, FaCog, FaWrench } from 'react-icons/fa'
 
@@ -10,10 +10,20 @@ interface Props {
 
 const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
   const history = useHistory()
-  const [isOpenSidebarSubMenu, setIsOpenSidebarSubMenu] = useState<boolean>(
-    false
-  )
-  const [subMenuSidebarClassName] = useState<string>('')
+  const [widthView, setWidthView] = useState<boolean>(false)
+
+  useEffect(() => {
+    window.addEventListener('resize', changeScrollSidebar)
+  }, [])
+
+  const changeScrollSidebar = () => {
+    if (window.innerWidth >= 768) {
+      console.log(window.innerWidth)
+      setWidthView(false)
+    } else {
+      setWidthView(true)
+    }
+  }
 
   const navigate = (url: string) => {
     // redirecionar
@@ -22,9 +32,8 @@ const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
 
   return (
     <Container
-      isOpenSidebarSubMenu={isOpenSidebarSubMenu}
       isOpenSidebar={isOpenSidebar}
-      subMenuSidebarClassName={subMenuSidebarClassName}
+      widthView={widthView}
       style={{ position: 'fixed' }}
     >
       <ul

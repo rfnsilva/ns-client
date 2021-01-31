@@ -22,16 +22,16 @@ const navbar: React.FC<Props> = ({ toggleSidebar }) => {
     window.addEventListener('scroll', changeScrollNav)
   }, [])
 
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
-
   const changeScrollNav = () => {
     if (window.scrollY >= 80) {
       setScrollNav(true)
     } else {
       setScrollNav(false)
     }
+  }
+
+  const toggle = () => {
+    setIsOpen(!isOpen)
   }
 
   const signout = async () => {

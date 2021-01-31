@@ -1,18 +1,12 @@
 import styled from 'styled-components'
 
 interface Props {
-  isOpenSidebarSubMenu: boolean
-  subMenuSidebarClassName?: string
   isOpenSidebar: boolean
+  widthView: boolean
 }
 
 export const Container = styled.div<Props>`
   display: flex;
-  .${props => props.subMenuSidebarClassName} {
-    display: ${props =>
-      props.isOpenSidebarSubMenu ? 'block !important' : 'none !important'};
-    margin: 0 1rem;
-  }
 
   .navbar-nav {
     display: flex;
@@ -90,7 +84,7 @@ export const Container = styled.div<Props>`
   .nav-link span {
     font-size: 0.65rem;
     display: block;
-    color: #fff !important;
+    color: #c93b59 !important;
   }
 
   .nav-link:hover {
@@ -160,15 +154,6 @@ export const Container = styled.div<Props>`
   }
 
   @media (max-width: 767px) {
-    .${props => props.subMenuSidebarClassName} {
-      display: ${props =>
-        props.isOpenSidebarSubMenu ? 'block !important' : 'none !important'};
-      position: absolute;
-      left: calc(5.5rem + 1.5rem / 2);
-      z-index: 1;
-      top: 2px;
-    }
-
     .toggled {
       display: ${props =>
         props.isOpenSidebar ? 'block !important' : 'none !important'};
