@@ -75,7 +75,10 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
       inputSurname.current &&
       inputEmail.current &&
       inputName.current &&
-      inputPhone.current
+      inputPhone.current &&
+      error.nameError === '' &&
+      error.surnameError === '' &&
+      error.phoneError === ''
     ) {
       const userUpdate = {
         name: inputName.current.value,
@@ -150,7 +153,7 @@ const layoutdados: React.FC<Props> = ({ isOpenSidebar }) => {
                 <div>
                   <div className="input-upload">
                     <label className="input-upload-label" htmlFor="input-file">
-                      Carregar foto
+                      <span>Carregar foto</span>
                     </label>
                     <input
                       type="file"

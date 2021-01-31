@@ -18,7 +18,6 @@ const sidebar: React.FC<Props> = ({ isOpenSidebar }) => {
 
   const changeScrollSidebar = () => {
     if (window.innerWidth >= 768) {
-      console.log(window.innerWidth)
       setWidthView(false)
     } else {
       setWidthView(true)

@@ -27,6 +27,11 @@ const register: React.FC = () => {
     }
   }
 
+  const navigate = (url: string) => {
+    // redirecionar
+    return history.push(url)
+  }
+
   return (
     <Container>
       <div className="container">
@@ -71,8 +76,8 @@ const register: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <button onClick={SubmitForm} className="login-btn">
-                        Login
+                      <button onClick={SubmitForm} className="register-btn">
+                        Registrar
                       </button>
                     </div>
                   </div>
@@ -80,6 +85,10 @@ const register: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="nav-link">
+          <a onClick={() => navigate('/login')}>login</a>
         </div>
       </div>
     </Container>

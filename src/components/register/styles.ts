@@ -8,26 +8,25 @@ export const Container = styled.div`
   background-color: #c93b59;
   color: rgb(105, 104, 104);
   font-family: sans-serif;
-  //CSS Card
+
   .container {
     width: 600px;
   }
+
   .card {
     padding: 1.2rem 3rem 1rem 3rem;
-    margin: 1rem;
+    margin: 1rem 1rem 0 1rem;
     border-radius: 1.5rem;
     border-color: rgba(238, 237, 237, 0.438);
     box-shadow: 5px 8px 10px #80808033;
   }
+
   @media (max-width: 767px) {
     .card {
       padding: 1.5rem 1.5rem 1rem 1.5rem;
     }
   }
-  .temp {
-    font-size: 5rem;
-    color: rgb(57, 57, 58);
-  }
+
   .card-1 {
     background: linear-gradient(
       to right,
@@ -35,36 +34,28 @@ export const Container = styled.div`
       rgba(241, 224, 190, 0.507)
     );
   }
-  @media (max-width: 767px) {
-    .temp {
-      font-size: 3rem;
-    }
-  }
-  .location {
-    margin-bottom: 1.5rem;
-  }
-  @media (max-width: 767px) {
-    .location {
-      font-size: 0.75rem;
-    }
-  }
+
   .img-fluid {
     display: flex;
     align-items: center;
     -webkit-user-drag: none;
   }
+
   @media (max-width: 400px) {
     .container {
       width: 100%;
     }
   }
+
   .col {
     overflow: visible;
   }
+
   .row {
     overflow: visible;
     margin: 0;
   }
+
   //CSS Input
   .form__group {
     position: relative;
@@ -74,6 +65,7 @@ export const Container = styled.div`
     border-radius: 12px;
     width: 100%;
   }
+
   .form__field {
     font-family: inherit;
     width: 91%;
@@ -86,15 +78,18 @@ export const Container = styled.div`
     background: transparent;
     transition: border-color 0.2s;
     margin-left: 23px;
+
     &::placeholder {
       color: transparent;
     }
+
     &:placeholder-shown ~ .form__label {
       font-size: 1.3rem;
       cursor: text;
       top: 20px;
     }
   }
+
   .form__label {
     position: absolute;
     top: 0;
@@ -104,6 +99,7 @@ export const Container = styled.div`
     color: $gray;
     margin-left: 25px;
   }
+
   .form__field:focus {
     ~ .form__label {
       position: absolute;
@@ -114,19 +110,14 @@ export const Container = styled.div`
       color: $primary;
       font-weight: 700;
     }
+
     padding-bottom: 6px;
     font-weight: 700;
     border-width: 3px;
     border-image: linear-gradient(to right, $primary, $secondary);
     border-image-slice: 1;
   }
-  /* reset input */
-  /* .form__field {
-    &:required,
-    &:invalid {
-      box-shadow: none;
-    }
-  } */
+
   .css-img-button {
     display: flex;
     margin-top: 38px;
@@ -134,6 +125,7 @@ export const Container = styled.div`
     align-items: center;
     width: 97%;
   }
+
   .error {
     width: 100%;
     color: red;
@@ -143,8 +135,8 @@ export const Container = styled.div`
       rgba(241, 224, 190, 0.507)
     );
   }
-  //CSS Button
-  .login-btn {
+
+  .register-btn {
     font-family: Hack, monospace;
     background: #c93b59;
     color: #fff;
@@ -164,18 +156,33 @@ export const Container = styled.div`
       color: #ffffff;
     }
   }
-  @media (max-width: 380px) {
-    .login-btn {
-      width: 121px;
+
+  .nav-link {
+    font-size: 18px;
+    text-align: end;
+    color: #fff !important;
+    margin-right: 9px;
+
+    a {
+      background-color: #8e253b;
+      cursor: pointer;
     }
   }
+
+  @media (max-width: 380px) {
+    .register-btn {
+      width: 131px;
+    }
+  }
+
   @media (max-width: 283px) {
-    .login-btn {
+    .register-btn {
       font-size: 1.3rem !important;
     }
   }
+
   @media (max-width: 450px) {
-    .login-btn {
+    .register-btn {
       font-size: 1.5rem;
     }
     .css-img-button {

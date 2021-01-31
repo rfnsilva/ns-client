@@ -63,3 +63,21 @@ export const validadPhone = (phone: string) => {
 
   return errors
 }
+
+export const validadPassword = (password: string) => {
+  const errors = { passError: '' }
+
+  switch (true) {
+    case !password:
+      errors.passError = 'senha obrigatoria'
+      break
+    case password.length <= 5:
+      errors.passError = 'minimo de 6 caracteres'
+      break
+    default:
+      errors.passError = ''
+      break
+  }
+
+  return errors
+}

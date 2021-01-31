@@ -68,6 +68,7 @@ export const Container = styled.div<Props>`
     width: 100%;
     height: 38px;
     color: #fff;
+    padding-top: 10px;
     text-align: center;
     border-radius: 5px;
     background-color: #317bff;
